@@ -51,20 +51,22 @@ for elementos_linha in elementos_lista:
 
 print('\n') # caracter não imprimível - quebra de linha
 
-# PASSO 3. USAR A FUNÇÃO MAP PARA CRIAR UMA LISTA COM OS VALORES DOS EMPRÉSTIMOS TRANSFOREMADOS EM FLOAT
+# PASSO 3. USAR A FUNÇÃO MAP PARA CRIAR UMA LISTA COM OS VALORES DOS EMPRÉSTIMOS TRANSFORMADOS EM FLOAT
 print("Uso da função Map \n")
 
 valores_emprestimos_lista = []
 
-def converter_str_float(str): 
-    valor = str[cabecalho_elementos[1]]
-    str[cabecalho_elementos[1]] = float(str[cabecalho_elementos[1]])
-    return (str)
+def converter_lista_str_float(lista_linha):
+    lista_linha[cabecalho_elementos[1]] = float(lista_linha[cabecalho_elementos[1]])
 
-elementos_lista_float = list(map(converter_str_float, elementos_lista))
+    return lista_linha
 
-for elementos_linha in elementos_lista_float:
-  print(elementos_linha)
-  print('valor: ', elementos_linha[cabecalho_elementos[1]], '(', type(elementos_linha[cabecalho_elementos[1]]),')')
+print('Chave integer : ', elementos_lista[1]['valor_emprestimos'] )
+print('\n')
+
+lista_valores_float = list(map(lambda x: { float(x[cabecalho_elementos[1]]) }, elementos_lista ))
+
+for valor in lista_valores_float:
+    print(valor)
 
 print('\n') # caracter não imprimível - quebra de linha
