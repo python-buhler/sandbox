@@ -1,5 +1,10 @@
 # Constantes
 LOCAL_FILE = 'credito.py'
+ID_VENDEDOR = 'id_vendedor'
+VALOR_EMPRESTIMO = 'valor_emprestimos'
+QUANTIDADE_EMPRESTIMO = 'quantidade_emprestimos'
+DATA ='data'
+
 
 # Variáveis
 credito = '''id_vendedor,valor_emprestimos,quantidade_emprestimos,data
@@ -15,56 +20,45 @@ credito = '''id_vendedor,valor_emprestimos,quantidade_emprestimos,data
 225870,4039.0,2,20161208'''
 
 # PASSO 1. CRIAR ARQUIVO FÍSICO
-print("Escrita de dados em arquivo CSV - comma separated values \n")
+print("1. Escrita de dados em arquivo CSV - comma separated values \n")
 
 with open (LOCAL_FILE , mode='w') as file :
     file.write(credito)
 
 # PASSO 2. LER O ARQUIVO FÍSICO
-print("Leitura de dados em arquivo CSV - comma separated values \n")
+print("2. Leitura de dados em arquivo CSV - comma separated values \n")
 
 with open (LOCAL_FILE , mode='r', encoding='utf8' ) as conteudo :
-    elementos_lista = []
-
+    emprestimos = []
 
     linha = conteudo.readline()
-    cabecalho_elementos = linha.strip().split(sep=',')
     
     linha = conteudo.readline()
     while linha:
 
-            elementos = linha.strip().split(sep=',')
+            linha_elementos = linha.strip().split(sep=',')
             
-            elementos_linha = {}
-            elementos_linha[cabecalho_elementos[0]] = elementos[0]
-            elementos_linha[cabecalho_elementos[1]] = elementos[1]
-            elementos_linha[cabecalho_elementos[2]] = elementos[2]
-            elementos_linha[cabecalho_elementos[3]] = elementos[3]
+            linha_emprestimo = {}
+            linha_emprestimo[ID_VENDEDOR] = linha_elementos[0]
+            linha_emprestimo[VALOR_EMPRESTIMO] = linha_elementos[1]
+            linha_emprestimo[QUANTIDADE_EMPRESTIMO] = linha_elementos[2]
+            linha_emprestimo[DATA] = linha_elementos[3]
 
-            elementos_lista.append(elementos_linha)
+            emprestimos.append(linha_emprestimo)
             
             linha = conteudo.readline()
 
-for elementos_linha in elementos_lista:
-  print(elementos_linha)
-  print('valor: ', elementos_linha[cabecalho_elementos[1]], '(', type(elementos_linha[cabecalho_elementos[1]]),')')
+for linha_emprestimo in emprestimos:
+  print(linha_emprestimo)
 
 print('\n') # caracter não imprimível - quebra de linha
 
 # PASSO 3. USAR A FUNÇÃO MAP PARA CRIAR UMA LISTA COM OS VALORES DOS EMPRÉSTIMOS TRANSFORMADOS EM FLOAT
-print("Uso da função Map \n")
+print("3. Uso da função Map \n")
 
 valores_emprestimos_lista = []
 
-def converter_lista_str_float(lista_linha):
-    lista_linha[cabecalho_elementos[1]] = float(lista_linha[cabecalho_elementos[1]])
-
-    return lista_linha
-
-print('Chave integer : ', elementos_lista[1]['valor_emprestimos'] )
-print('\n')
-
-lista_valores_float = list(map(lambda x: { float(x[cabecalho_elementos[1]]) }, elementos_lista ))
+lista_valores_float = list(map(lambda x: { float(x[VALOR_EMPRESTIMO]) }, emprestimos ))
 
 for valor in lista_valores_float:
     print(valor)
